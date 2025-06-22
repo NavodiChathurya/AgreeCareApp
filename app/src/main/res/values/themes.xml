@@ -1,0 +1,21 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.AgreeCareApp" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Primary brand color -->
+        <item name="colorPrimary">@color/primaryColor</item>
+        <!-- Color for text/icons on primary color -->
+        <item name="colorOnPrimary">@color/white</item>
+        <!-- Secondary brand color -->
+        <item name="colorSecondary">@color/secondaryColor</item>
+        <!-- Color for text/icons on secondary color -->
+        <item name="colorOnSecondary">@color/white</item>
+        <!-- Background color -->
+        <item name="android:colorBackground">@color/backgroundColor</item>
+        <!-- Text color -->
+        <item name="android:textColor">@color/textColorPrimary</item>
+        <!-- Customize font family, you can replace with your font or remove if not needed -->
+        <item name="android:fontFamily">sans-serif</item>
+    </style>
+
+    <style name="Theme.AgreeCareApp" parent="Base.Theme.AgreeCareApp" />
+</resources>

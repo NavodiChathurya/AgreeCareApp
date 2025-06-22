@@ -1,0 +1,8 @@
+<resources>
+    <color name="primaryColor">#101D03</color>
+    <color name="secondaryColor">#03DAC5</color>
+    <color name="backgroundColor">#FFFFFF</color>
+    <color name="textColorPrimary">#000000</color>
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color> <!-- ✅ Added -->
+</resources>
