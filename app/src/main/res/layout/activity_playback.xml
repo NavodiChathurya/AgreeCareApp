@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="24dp"
+    android:background="#FFFFFF">
+
+    <!-- 🔙 Back Arrow -->
+    <!-- 🔙 Back Arrow -->
+    <ImageView
+        android:id="@+id/backArrow"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:src="@drawable/back_arrow"
+        android:contentDescription="Back"
+        android:clickable="true"
+        android:focusable="true" />
+
+
+    <!-- 🔊 Title -->
+    <TextView
+        android:id="@+id/playbackTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Playback"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:textColor="#2E7D32"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp" />
+
+    <!-- 🎵 Filename -->
+    <TextView
+        android:id="@+id/audioFileName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="recording_xxx.3gp"
+        android:textColor="#444444"
+        android:layout_below="@id/playbackTitle"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp" />
+
+    <!-- ⏱️ Duration -->
+    <TextView
+        android:id="@+id/txtDuration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="00:00 / 00:00"
+        android:textColor="#555555"
+        android:textSize="16sp"
+        android:layout_below="@id/audioFileName"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="12dp" />
+
+    <!-- 📊 Playback ProgressBar -->
+    <ProgressBar
+        android:id="@+id/playbackProgress"
+        style="@android:style/Widget.ProgressBar.Horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/txtDuration"
+        android:layout_marginTop="6dp"
+        android:layout_centerHorizontal="true"
+        android:progress="0"
+        android:max="100"
+        android:progressTint="#2E7D32" />
+
+    <!-- ▶️ Play Button -->
+    <Button
+        android:id="@+id/btnPlay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="▶ Play"
+        android:layout_below="@id/playbackProgress"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="28dp"
+        android:backgroundTint="#388E3C"
+        android:textColor="#FFFFFF" />
+
+    <!-- ⏸️ Pause Button -->
+    <Button
+        android:id="@+id/btnPause"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="⏸ Pause"
+        android:layout_below="@id/btnPlay"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:backgroundTint="#FFA000"
+        android:textColor="#FFFFFF" />
+
+    <!-- ⏹️ Stop Button -->
+    <Button
+        android:id="@+id/btnStop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="⏹ Stop"
+        android:layout_below="@id/btnPause"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:backgroundTint="#D32F2F"
+        android:textColor="#FFFFFF" />
+
+</RelativeLayout>

@@ -6,7 +6,7 @@
     android:background="@drawable/bg_main"
     android:padding="16dp">
 
-    <!-- Optional Toolbar -->
+    <!-- Toolbar -->
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
@@ -20,7 +20,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/toolbar"
-        android:layout_above="@+id/bottomNavBar">
+        android:layout_above="@id/bottomNavBar">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -31,7 +31,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Setting"
+                android:text="@string/settings"
                 android:textSize="28sp"
                 android:textStyle="bold"
                 android:gravity="center"
@@ -65,33 +65,38 @@
 
             <!-- Settings Buttons -->
             <Button
+                android:id="@+id/btnManageSettings"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Manage App Setting"
+                android:text="@string/manage_app_settings"
                 android:background="@drawable/ripple_rounded_button"
                 android:textColor="#FAF6F6"
                 android:layout_marginBottom="16dp" />
 
             <Button
+                android:id="@+id/btnEditProfile"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Edit User Details"
+                android:text="@string/edit_user_details"
                 android:background="@drawable/ripple_rounded_button"
                 android:textColor="#FAF6F6"
                 android:layout_marginBottom="16dp" />
 
             <Button
+                android:id="@+id/btnChangeThemeLanguage"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Change Theme Or Language"
+                android:text="@string/change_theme_language"
                 android:background="@drawable/ripple_rounded_button"
                 android:textColor="#FAF6F6"
-                android:layout_marginBottom="16dp" />
+                android:layout_marginBottom="16dp"
+                android:contentDescription="Navigate to Change Theme or Language page" />
 
             <Button
+                android:id="@+id/btnSetReminder"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Set Notification Or Reminder"
+                android:text="@string/set_notification_reminder"
                 android:background="@drawable/ripple_rounded_button"
                 android:textColor="#FAF6F6"
                 android:layout_marginBottom="16dp" />
@@ -101,7 +106,7 @@
                 android:id="@+id/btnLogout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Log out Option"
+                android:text="@string/logout"
                 android:background="@drawable/ripple_rounded_button"
                 android:textColor="#FAF6F6"
                 android:layout_marginBottom="16dp" />
@@ -124,11 +129,13 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:clickable="true"
+            android:focusable="true">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Home"
+                android:text="@string/home"
                 android:textColor="#FFFFFF"
                 android:textSize="16sp" />
         </LinearLayout>
@@ -139,11 +146,13 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:clickable="true"
+            android:focusable="true">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Tasks"
+                android:text="@string/tasks"
                 android:textColor="#FFFFFF"
                 android:textSize="16sp" />
         </LinearLayout>
@@ -154,11 +163,13 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:clickable="true"
+            android:focusable="true">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Report"
+                android:text="@string/report"
                 android:textColor="#FFFFFF"
                 android:textSize="16sp" />
         </LinearLayout>
@@ -169,12 +180,14 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:clickable="true"
+            android:focusable="true">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Setting"
-                android:textColor="#FFFFFF"
+                android:text="@string/settings"
+                android:textColor="#C9DB1C"
                 android:textSize="16sp" />
         </LinearLayout>
     </LinearLayout>

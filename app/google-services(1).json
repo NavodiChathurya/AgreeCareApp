@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "323039532609",
+    "firebase_url": "https://agreecareapp-fa46b-default-rtdb.firebaseio.com",
+    "project_id": "agreecareapp-fa46b",
+    "storage_bucket": "agreecareapp-fa46b.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:323039532609:android:a9c0171674294916be18c0",
+        "android_client_info": {
+          "package_name": "com.example.agreecareapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBSXDymLFleNyhKWCPGrBq4kxeZNWo-lOA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

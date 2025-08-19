@@ -4,7 +4,7 @@
     android:background="@drawable/bg_main"
     android:padding="16dp">
 
-    <!-- Logout Button (Top-Right Corner) -->
+    <!-- 🔐 Logout Button -->
     <Button
         android:id="@+id/btnLogout"
         android:layout_width="wrap_content"
@@ -12,12 +12,12 @@
         android:text="Logout"
         android:textSize="14sp"
         android:layout_alignParentEnd="true"
-        android:layout_alignParentTop="true"
-        android:layout_margin="8dp"
-        android:background="@drawable/ripple_rounded_button"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/btn_green_ripple"
         android:textColor="#FFFFFF" />
 
-    <!-- Scrollable Content -->
+    <!-- 📜 Scrollable Main Content -->
     <ScrollView
         android:id="@+id/scrollViewContent"
         android:layout_width="match_parent"
@@ -27,29 +27,31 @@
         android:layout_marginTop="8dp">
 
         <LinearLayout
-            android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="32dp">
+            android:orientation="vertical"
+            android:padding="24dp"
+            android:gravity="center_horizontal">
 
+            <!-- 🏠 Title -->
             <TextView
                 android:id="@+id/titleText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Dashboard"
-                android:textSize="36sp"
+                android:textSize="52sp"
                 android:textStyle="bold"
-                android:textColor="#1F381C"
-                android:layout_gravity="center"
-                android:paddingBottom="32dp" />
+                android:textColor="#011001"
+                android:layout_marginBottom="32dp" />
 
-            <!-- Buttons -->
+            <!-- 📦 Feature Buttons -->
             <Button
                 android:id="@+id/btnCrop"
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
+                android:layout_height="56dp"
                 android:text="Crop Management"
-                android:background="@drawable/ripple_rounded_button"
+                android:textAllCaps="false"
+                android:background="@drawable/btn_green_ripple"
                 android:textColor="#FFFFFF"
                 android:textStyle="bold"
                 android:layout_marginBottom="16dp" />
@@ -57,9 +59,10 @@
             <Button
                 android:id="@+id/btnLivestock"
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
+                android:layout_height="56dp"
                 android:text="Sensor and Location"
-                android:background="@drawable/ripple_rounded_button"
+                android:textAllCaps="false"
+                android:background="@drawable/btn_green_ripple"
                 android:textColor="#FFFFFF"
                 android:textStyle="bold"
                 android:layout_marginBottom="16dp" />
@@ -67,9 +70,10 @@
             <Button
                 android:id="@+id/btnMultimedia"
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
+                android:layout_height="56dp"
                 android:text="Multimedia Integration"
-                android:background="@drawable/ripple_rounded_button"
+                android:textAllCaps="false"
+                android:background="@drawable/btn_green_ripple"
                 android:textColor="#FFFFFF"
                 android:textStyle="bold"
                 android:layout_marginBottom="16dp" />
@@ -77,9 +81,10 @@
             <Button
                 android:id="@+id/btnViewData"
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
+                android:layout_height="56dp"
                 android:text="View Data"
-                android:background="@drawable/ripple_rounded_button"
+                android:textAllCaps="false"
+                android:background="@drawable/btn_green_ripple"
                 android:textColor="#FFFFFF"
                 android:textStyle="bold"
                 android:layout_marginBottom="16dp" />
@@ -87,18 +92,17 @@
             <Button
                 android:id="@+id/btnProfile"
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
+                android:layout_height="56dp"
                 android:text="Profile"
-                android:background="@drawable/ripple_rounded_button"
+                android:textAllCaps="false"
+                android:background="@drawable/btn_green_ripple"
                 android:textColor="#FFFFFF"
                 android:textStyle="bold"
                 android:layout_marginBottom="16dp" />
-
-
         </LinearLayout>
     </ScrollView>
 
-    <!-- Bottom Navigation -->
+    <!-- 🔽 Bottom Navigation -->
     <LinearLayout
         android:id="@+id/bottomNavBar"
         android:layout_width="match_parent"
@@ -109,6 +113,7 @@
         android:weightSum="4"
         android:elevation="8dp">
 
+        <!-- 🏠 Home -->
         <LinearLayout
             android:id="@+id/navHome"
             android:layout_width="0dp"
@@ -122,10 +127,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Home"
-                android:textColor="#FFFFFF"
+                android:textColor="#CDDC22"
                 android:textSize="16sp" />
         </LinearLayout>
 
+        <!-- ✅ Tasks -->
         <LinearLayout
             android:id="@+id/navTasks"
             android:layout_width="0dp"
@@ -143,6 +149,7 @@
                 android:textSize="16sp" />
         </LinearLayout>
 
+        <!-- 📈 Report -->
         <LinearLayout
             android:id="@+id/navReport"
             android:layout_width="0dp"
@@ -160,6 +167,7 @@
                 android:textSize="16sp" />
         </LinearLayout>
 
+        <!-- ⚙ Settings -->
         <LinearLayout
             android:id="@+id/navSettings"
             android:layout_width="0dp"

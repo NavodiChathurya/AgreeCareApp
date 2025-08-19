@@ -1,11 +1,11 @@
 package com.example.agreecareapp;
 
 import android.Manifest;
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
-import android.location.Location;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
@@ -19,17 +19,12 @@ import androidx.fragment.app.FragmentActivity;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.*;
+import com.google.android.gms.maps.model.*;
+import com.google.firebase.database.*;
 
 import java.io.IOException;
-import java.util.List;
-import java.util.Locale;
+import java.util.*;
 
 public class MapActivity extends FragmentActivity implements OnMapReadyCallback {
 
@@ -38,43 +33,69 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1001;
 
     private EditText searchBar;
-    private Button btnSearch;
+    private Button btnSearch, btnShops, btnFarms, btnAll;
     private TextView arrowBack;
+    private LatLng lastSearchedLatLng = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
 
-        // Init views
+        // Initialize views
         searchBar = findViewById(R.id.searchBar);
         btnSearch = findViewById(R.id.btnSearch);
         arrowBack = findViewById(R.id.arrow_back);
+        btnShops = findViewById(R.id.btnShops);
+        btnFarms = findViewById(R.id.btnFarms);
+        btnAll = findViewById(R.id.btnAll);
 
-        // ⬅️ Go to SensorLocationActivity
+        // Back arrow click
         arrowBack.setOnClickListener(v -> {
-            Intent intent = new Intent(MapActivity.this, SensorLocationActivity.class);
-            startActivity(intent);
+            startActivity(new Intent(this, SensorLocationActivity.class));
             finish();
         });
 
-        // Init location client
+        // Setup map fragment
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
+        if (mapFragment != null) mapFragment.getMapAsync(this);
 
-        // Setup map
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.map);
-        if (mapFragment != null) {
-            mapFragment.getMapAsync(this);
-        }
-
-        // Search button click
+        // Search button
         btnSearch.setOnClickListener(v -> {
             String location = searchBar.getText().toString();
             if (!location.isEmpty()) {
                 searchLocation(location);
             } else {
                 Toast.makeText(this, "Please enter a location", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        // Filter buttons
+        btnShops.setOnClickListener(v -> {
+            String location = searchBar.getText().toString();
+            if (!location.isEmpty()) {
+                loadLocationsFromFirebase("shop", location);
+            } else {
+                Toast.makeText(this, "Please search a location first", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        btnFarms.setOnClickListener(v -> {
+            String location = searchBar.getText().toString();
+            if (!location.isEmpty()) {
+                loadLocationsFromFirebase("farm", location);
+            } else {
+                Toast.makeText(this, "Please search a location first", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        btnAll.setOnClickListener(v -> {
+            String location = searchBar.getText().toString();
+            if (!location.isEmpty()) {
+                loadLocationsFromFirebase("all", location);
+            } else {
+                Toast.makeText(this, "Please search a location first", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -85,40 +106,25 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
 
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
                 == PackageManager.PERMISSION_GRANTED) {
-            showUserLocation();
+            showUserLocation();  // ✅ Using safe listener
         } else {
             ActivityCompat.requestPermissions(this,
                     new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
                     LOCATION_PERMISSION_REQUEST_CODE);
         }
-
-        // Add sample markers
-        addMarker(new LatLng(6.9271, 79.8612), "Farm Shop", BitmapDescriptorFactory.HUE_GREEN);
-        addMarker(new LatLng(6.9147, 79.9736), "Farm Shop", BitmapDescriptorFactory.HUE_GREEN);
-        addMarker(new LatLng(6.9350, 79.8700), "Farmer", BitmapDescriptorFactory.HUE_AZURE);
-        addMarker(new LatLng(6.9500, 79.8800), "Farmer", BitmapDescriptorFactory.HUE_AZURE);
     }
 
     private void showUserLocation() {
-        fusedLocationClient.getLastLocation().addOnSuccessListener(this, location -> {
+        fusedLocationClient.getLastLocation().addOnSuccessListener(location -> {
             if (location != null && mMap != null) {
                 LatLng userLatLng = new LatLng(location.getLatitude(), location.getLongitude());
                 mMap.addMarker(new MarkerOptions()
                         .position(userLatLng)
                         .title("You Are Here")
                         .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
-
                 mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(userLatLng, 13));
             }
         });
-    }
-
-    private void addMarker(LatLng latLng, String title, float colorHue) {
-        if (mMap == null) return;
-        mMap.addMarker(new MarkerOptions()
-                .position(latLng)
-                .title(title)
-                .icon(BitmapDescriptorFactory.defaultMarker(colorHue)));
     }
 
     private void searchLocation(String locationName) {
@@ -127,16 +133,14 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
             List<Address> addressList = geocoder.getFromLocationName(locationName, 1);
             if (addressList != null && !addressList.isEmpty()) {
                 Address address = addressList.get(0);
-                LatLng latLng = new LatLng(address.getLatitude(), address.getLongitude());
+                lastSearchedLatLng = new LatLng(address.getLatitude(), address.getLongitude());
 
-                // Clear previous search marker
                 mMap.clear();
-
-                // Add new marker
                 mMap.addMarker(new MarkerOptions()
-                        .position(latLng)
-                        .title(locationName));
-                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15));
+                        .position(lastSearchedLatLng)
+                        .title(locationName + " Center"));
+
+                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(lastSearchedLatLng, 13));
             } else {
                 Toast.makeText(this, "Location not found", Toast.LENGTH_SHORT).show();
             }
@@ -146,6 +150,65 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
         }
     }
 
+    private void loadLocationsFromFirebase(String filterType, String cityFilter) {
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("locations");
+
+        ref.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                mMap.clear();
+                List<LocationItem> matchedItems = new ArrayList<>();
+
+                for (DataSnapshot child : snapshot.getChildren()) {
+                    LocationItem item = child.getValue(LocationItem.class);
+
+                    if (item != null &&
+                            (filterType.equals("all") || item.type.equalsIgnoreCase(filterType)) &&
+                            (cityFilter == null || (item.city != null && item.city.equalsIgnoreCase(cityFilter)))) {
+
+                        LatLng position = new LatLng(item.latitude, item.longitude);
+                        float color = item.type.equals("shop") ?
+                                BitmapDescriptorFactory.HUE_ORANGE : BitmapDescriptorFactory.HUE_GREEN;
+
+                        mMap.addMarker(new MarkerOptions()
+                                .position(position)
+                                .title(item.name)
+                                .icon(BitmapDescriptorFactory.defaultMarker(color)));
+
+                        matchedItems.add(item);
+                    }
+                }
+
+                if (!matchedItems.isEmpty()) {
+                    showPopupList(matchedItems, filterType);
+                } else {
+                    Toast.makeText(MapActivity.this, "No " + filterType + "s found in " + cityFilter, Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(MapActivity.this, "Failed to load map data", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void showPopupList(List<LocationItem> items, String type) {
+        StringBuilder message = new StringBuilder();
+        for (LocationItem item : items) {
+            message.append("📍 ").append(item.name)
+                    .append(" (").append(item.type).append(")")
+                    .append("\nCity: ").append(item.city != null ? item.city : "Unknown")
+                    .append("\n\n");
+        }
+
+        new AlertDialog.Builder(MapActivity.this)
+                .setTitle("Nearby " + (type.equals("all") ? "Locations" : type + "s"))
+                .setMessage(message.toString())
+                .setPositiveButton("OK", null)
+                .show();
+    }
+
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
                                            @NonNull int[] grantResults) {
@@ -153,7 +216,7 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
         if (requestCode == LOCATION_PERMISSION_REQUEST_CODE &&
                 grantResults.length > 0 &&
                 grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-            showUserLocation();
+            showUserLocation();  // ✅ Called again after permission granted
         }
     }
 }

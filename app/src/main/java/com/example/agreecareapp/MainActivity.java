@@ -55,7 +55,8 @@ public class MainActivity extends AppCompatActivity {
                 return;
             }
 
-            boolean inserted = db.insertUser(name, email, password);
+            // Insert user with empty phone and imageUri
+            boolean inserted = db.insertUser(name, email, password, "", "");
             if (inserted) {
                 Toast.makeText(MainActivity.this, "Signup successful! Please log in.", Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(MainActivity.this, LoginActivity.class));

@@ -3,10 +3,34 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.agreecareapp">
 
-    <!-- ✅ Permissions -->
+    <!-- 🌐 Network Permissions -->
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <!-- 📍 Location -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-feature
+        android:name="android.hardware.location"
+        android:required="false" />
+
+    <!-- 📷 Multimedia -->
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="false" />
+    <uses-feature
+        android:name="android.hardware.microphone"
+        android:required="false" />
+
+    <!-- 🗂️ Storage (Updated for Android 13+) -->
+    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
+    <uses-permission android:name="android.permission.READ_MEDIA_AUDIO" />
+    <!-- Remove deprecated WRITE_EXTERNAL_STORAGE and MANAGE_EXTERNAL_STORAGE -->
+
+    <!-- 🔔 Notifications (Android 13+) -->
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
 
     <application
         android:allowBackup="true"
@@ -17,16 +41,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AgreeCareApp"
-        tools:targetApi="31">
+        tools:targetApi="33">
 
-        <!-- 🔑 Google Maps API Key -->
-        <meta-data
-            android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyDgsLPlhbyclbxiF0ZlOSzg_zJM9d7deSI" />
+        <activity
+            android:name=".ViewSavedDataActivity"
+            android:exported="false" />
 
-        <!-- 📱 Activities -->
-
-        <!-- Launcher Activity -->
+        <!-- ✅ Launcher -->
         <activity
             android:name=".HomeActivity"
             android:exported="true"
@@ -37,42 +58,167 @@
             </intent-filter>
         </activity>
 
-        <!-- Authentication Activities -->
+        <!-- ✅ Auth -->
         <activity
             android:name=".MainActivity"
             android:exported="true"
-            android:label="Sign Up" />
+            android:label="Sign Up">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".LoginActivity"
             android:exported="true"
-            android:label="Login" />
+            android:label="Login">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".OAuthActivity"
             android:exported="false" />
 
-        <!-- Feature Screens -->
-        <activity
-            android:name=".Dashboard"
-            android:exported="false"
-            android:label="Dashboard" />
+        <!-- ✅ Profile & User Management -->
         <activity
             android:name=".ProfileActivity"
             android:exported="true"
             android:label="Profile" />
         <activity
-            android:name=".MapActivity"
-            android:exported="false" />
+            android:name=".EditProfileActivity"
+            android:exported="false"
+            android:label="Edit Profile" />
         <activity
-            android:name=".TemperatureActivity"
+            android:name=".ChangeThemeLanguageActivity"
+            android:exported="false"
+            android:label="Change Theme or Language" />
+
+        <!-- ✅ App Features -->
+        <activity
+            android:name=".Dashboard"
+            android:exported="false"
+            android:label="Dashboard" />
+        <activity
+            android:name=".MapActivity"
             android:exported="false" />
         <activity
             android:name=".SensorLocationActivity"
             android:exported="false" />
         <activity
+            android:name=".TemperatureActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ManageSettingsActivity"
+            android:exported="false"
+            android:label="Manage Settings" />
+        <activity
+            android:name=".ReminderActivity"
+            android:exported="false" />
+        <activity
+            android:name=".WeatherActivity"
+            android:exported="false" />
+
+        <!-- ✅ Crop -->
+        <activity
+            android:name=".CropManagementActivity"
+            android:exported="true"
+            android:label="Crop Management">
+            <intent-filter>
+                <action android:name="com.example.agreecareapp.VIEW_CROPS" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".AddCropActivity"
+            android:exported="true"
+            android:label="Add Crop">
+            <intent-filter>
+                <action android:name="com.example.agreecareapp.ADD_CROP" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+        <!-- ✅ Livestock -->
+        <activity
             android:name=".LivestockManagementActivity"
             android:exported="false"
             android:label="Livestock Management" />
 
+        <!-- ✅ Multimedia -->
+        <activity
+            android:name=".MultimediaIntegrationActivity"
+            android:exported="true"
+            android:label="Multimedia Integration" />
+
+        <!-- ✅ Audio -->
+        <activity
+            android:name=".VoiceRecorderActivity"
+            android:exported="false"
+            android:label="Voice Recorder" />
+        <activity
+            android:name=".PlaybackActivity"
+            android:exported="false"
+            android:label="Playback" />
+
+        <!-- ✅ Data -->
+        <activity
+            android:name=".ViewDataActivity"
+            android:exported="false"
+            android:label="View Data" />
+
+        <!-- ✅ Broadcast Receivers -->
+        <receiver
+            android:name=".notifications.WeatherNotificationReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.TIME_SET" />
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name=".ReminderReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+
+        <!-- ✅ FileProvider -->
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+
+        <!-- ✅ Firebase -->
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_icon"
+            android:resource="@drawable/ic_notification" />
+        <meta-data
+            android:name="firebase_database_url"
+            android:value="https://agreecareapp-fa46b-default-rtdb.firebaseio.com/" />
+
+        <!-- ✅ Google Maps -->
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyDgsLPlhbyclbxiF0ZlOSzg_zJM9d7deSI" />
+
+        <!-- ✅ Google Analytics -->
+        <meta-data
+            android:name="google_analytics_collection_enabled"
+            android:value="true" />
+        <meta-data
+            android:name="google_analytics_app_version"
+            android:value="1.1" />
+        <meta-data
+            android:name="google_analytics_adid_collection_enabled"
+            android:value="true" />
     </application>
 
 </manifest>

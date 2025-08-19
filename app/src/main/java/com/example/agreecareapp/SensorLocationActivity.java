@@ -28,7 +28,7 @@ public class SensorLocationActivity extends AppCompatActivity {
             return insets;
         });
 
-        // 🌐 Google Map Button
+        // 🗺 Google Map Button
         Button btnMap = findViewById(R.id.btnMap);
         btnMap.setOnClickListener(view -> {
             startActivity(new Intent(this, MapActivity.class));
@@ -40,16 +40,13 @@ public class SensorLocationActivity extends AppCompatActivity {
             startActivity(new Intent(this, TemperatureActivity.class));
         });
 
-        // ☔️ Raining Button
-        Button btnRain = findViewById(R.id.btnRain);
-        btnRain.setOnClickListener(view -> {
-            Toast.makeText(this, "Raining sensor clicked", Toast.LENGTH_SHORT).show();
-        });
-
-        // 💨 Wind Button
-        Button btnWind = findViewById(R.id.btnWind);
-        btnWind.setOnClickListener(view -> {
-            Toast.makeText(this, "Wind sensor clicked", Toast.LENGTH_SHORT).show();
+        // 🌦 Weather Button → opens WeatherActivity with city name
+        Button btnWeather = findViewById(R.id.btnRain);
+        btnWeather.setText("Weather");
+        btnWeather.setOnClickListener(view -> {
+            Intent intent = new Intent(this, WeatherActivity.class);
+            intent.putExtra("city_name", "Colombo");  // 👈 pass city name
+            startActivity(intent);
         });
 
         // ⛳ Bottom Navigation - Home
@@ -61,19 +58,19 @@ public class SensorLocationActivity extends AppCompatActivity {
         // 📋 Bottom Navigation - Tasks
         TextView navTasks = findViewById(R.id.navTasks);
         navTasks.setOnClickListener(v -> {
-            Toast.makeText(this, "Tasks clicked", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "You are already on the Sensor and Location page", Toast.LENGTH_SHORT).show();
         });
 
         // 📊 Bottom Navigation - Report
         TextView navReport = findViewById(R.id.navReport);
         navReport.setOnClickListener(v -> {
-            Toast.makeText(this, "Report clicked", Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(this, ViewDataActivity.class));
         });
 
         // ⚙️ Bottom Navigation - Setting
         TextView navSetting = findViewById(R.id.navSetting);
         navSetting.setOnClickListener(v -> {
-            Toast.makeText(this, "Settings clicked", Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(this, ProfileActivity.class));
         });
     }
 }

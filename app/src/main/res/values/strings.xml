@@ -1,3 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">AgreeCareApp</string>
+    <string name="app_name">AgreCareApp</string>
+
+    <!-- 🌱 Crop Types -->
+    <string-array name="crop_types">
+        <item>Vegetable</item>
+        <item>Fruit</item>
+        <item>Grain</item>
+        <item>Herb</item>
+        <item>Other</item>
+    </string-array>
+
+    <!-- 🏙️ Sri Lankan Cities -->
+    <string-array name="sri_lanka_cities">
+        <item>Colombo</item>
+        <item>Kandy</item>
+        <item>Galle</item>
+        <item>Jaffna</item>
+        <item>Anuradhapura</item>
+        <item>Negombo</item>
+        <item>Trincomalee</item>
+        <item>Matara</item>
+        <item>Badulla</item>
+        <item>Ratnapura</item>
+        <item>Polonnaruwa</item>
+        <item>Hambantota</item>
+        <item>Kurunegala</item>
+        <item>Kalutara</item>
+        <item>Batticaloa</item>
+        <item>Vavuniya</item>
+        <item>Mannar</item>
+        <item>Monaragala</item>
+        <item>Nuwara Eliya</item>
+        <item>Puttalam</item>
+        <item>Mullaitivu</item>
+        <item>Tangalle</item>
+        <item>Ampara</item>
+        <item>Kilinochchi</item>
+        <item>Polgahawela</item>
+        <item>Wattala</item>
+        <item>Seeduwa</item>
+        <item>Panadura</item>
+        <item>Haputale</item>
+        <item>Hatton</item>
+        <item>Aluthgama</item>
+        <item>Bandarawela</item>
+        <item>Kalmunai</item>
+        <item>Eravur</item>
+        <item>Chilaw</item>
+        <item>Peliyagoda</item>
+        <item>Kelaniya</item>
+    </string-array>
+
+    <!-- 🎨 Theme and Language Settings -->
+    <string name="change_theme_language">Change Theme or Language</string>
+    <string name="select_theme">Select Theme</string>
+    <string name="light_theme">Light Theme</string>
+    <string name="dark_theme">Dark Theme</string>
+    <string name="select_language">Select Language</string>
+    <string name="save_changes">Save Changes</string>
+    <string name="settings_saved">Settings saved successfully</string>
+    <string name="settings_save_failed">Failed to save settings: %1$s</string>
+    <string name="language_english">English</string>
+    <string name="language_spanish">Spanish</string>
+
+    <!-- 🛠️ Profile Settings -->
+    <string name="settings">Settings</string>
+    <string name="manage_app_settings">Manage App Settings</string>
+    <string name="edit_user_details">Edit User Details</string>
+    <string name="set_notification_reminder">Set Notification or Reminder</string>
+    <string name="logout">Log Out</string>
+
+    <!-- 📱 Bottom Navigation -->
+    <string name="home">Home</string>
+    <string name="tasks">Tasks</string>
+    <string name="report">Report</string>
+
+    <!-- Added missing string -->
+    <string name="select_crop_type">Select Crop Type</string>
 </resources>

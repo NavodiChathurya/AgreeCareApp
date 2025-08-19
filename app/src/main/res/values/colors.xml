@@ -1,8 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="primaryColor">#101D03</color>
-    <color name="secondaryColor">#03DAC5</color>
-    <color name="backgroundColor">#FFFFFF</color>
-    <color name="textColorPrimary">#000000</color>
+    <!-- App-specific colors from your input -->
+    <color name="primaryColor">#0A490D</color> <!-- Dark Green -->
+    <color name="secondaryColor">#06453E</color> <!-- Teal-ish -->
+    <color name="backgroundColor">#FFFFFF</color> <!-- White background -->
+    <color name="textColorPrimary">#000000</color> <!-- Black text -->
     <color name="white">#FFFFFF</color>
-    <color name="black">#000000</color> <!-- ✅ Added -->
+    <color name="black">#000000</color>
+
+    <!-- Additional colors for professional UI -->
+    <color name="background_light">#F5F5F5</color> <!-- Light grey for layout background -->
+    <color name="card_background">#18645B</color> <!-- Subtle grey for cards -->
+    <color name="text_primary">#212121</color> <!-- Dark grey for primary text -->
+    <color name="text_hint">#757575</color> <!-- Medium grey for hints and icons -->
 </resources>

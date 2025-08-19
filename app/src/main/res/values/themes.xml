@@ -13,7 +13,7 @@
         <item name="android:colorBackground">@color/backgroundColor</item>
         <!-- Text color -->
         <item name="android:textColor">@color/textColorPrimary</item>
-        <!-- Customize font family, you can replace with your font or remove if not needed -->
+        <!-- Customize font family -->
         <item name="android:fontFamily">sans-serif</item>
     </style>
 
